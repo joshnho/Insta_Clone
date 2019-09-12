@@ -1,0 +1,12 @@
+<h3>Upload Post</h3>
+
+<%= form_for [@user, @post] do |f| %>
+
+<p><%= f.label :content %></p>
+<p><%= f.text_field :content %></p>
+
+<p><%= f.label :description %></p>
+<p><%= f.text_area :description %></p>
+
+<%= f.submit %>
+<% end %>
