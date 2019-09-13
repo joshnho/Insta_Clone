@@ -8,6 +8,7 @@
         <p>Uploaded on: <%= post.created_at %></p>
         <%= button_to "Edit description", edit_post_path(post.id), method: :get %>
         <%= button_to "Remove post", post, method: :delete %>
+        <p>Likes:<%= @like_counter %><%= button_to "Like EMOJI", new_like_path(@post.likes.ids), method: :get %></p>
         <br>
     <% end %>
 <% end %>

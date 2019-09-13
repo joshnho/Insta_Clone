@@ -1,8 +1,18 @@
 class PostsController < ApplicationController
+
+    before_action :authenticate_user!, only: [:vote]
+    before_action :find_post
+    respond_to :js, :json, :html
     def index
         # @posts = Post.all
-        @posts = Post.all.sort_by {|post| post.id}.reverse
+        # @posts = Post.all.sort_by {|post| post.id}.reverse
+        if request.path != posts_path
+            redirect_to posts_path
+        end
+        @posts = Post.includes(:likes).all && Post.all.sort_by {|post| post.id}.reverse
     end
+
+    
 
     def show
         @user = User.find(params[:id])
@@ -37,6 +47,14 @@ class PostsController < ApplicationController
         find_post
         @post.destroy
         redirect_to user_path(@post.user)
+    end
+
+    def vote 
+        if !current_user.liked? @post
+            @post.liked_by current_user 
+        elsif current_user.liked? @post 
+            @post.unliked_by current_user
+        end
     end
 
     private

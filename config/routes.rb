@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :likes
-  resources :posts
+  resources :likers
+  resources :posts do   
+    member do 
+      put "like" => "posts#vote"
+    end
+  end
   resources :users do
     resources :posts
   end
