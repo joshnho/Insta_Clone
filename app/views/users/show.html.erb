@@ -1,11 +1,14 @@
 <h1><%= @user.username %>'s Posts</h1>
 
 
-<% @user.posts.each do |post| %>
+<% @sorted_posts.each do |post| %>
     <% if post.id %>
-        <p><%= link_to post.content, post %></p>
+        <%= image_tag post.content %>
         <p><%= post.description %></p>
         <p>Uploaded on: <%= post.created_at %></p>
+        <%= button_to "Edit description", edit_post_path(post.id), method: :get %>
+        <%= button_to "Remove post", post, method: :delete %>
+        <br>
     <% end %>
 <% end %>
 
@@ -14,7 +17,7 @@
 
 <%= form_for [@user, @post] do |f| %>
 
-<p><%= f.label :content %></p>
+<p><%= f.label :content, "Picture URL" %></p>
 <p><%= f.text_field :content %></p>
 
 <p><%= f.label :description %></p>

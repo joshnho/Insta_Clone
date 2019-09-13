@@ -2,12 +2,14 @@ class UsersController < ApplicationController
 
     def index
         @users = User.all
-        @posts = Post.all.sort_by {|post| post.created_at}.reverse
+        @posts = Post.all.sort_by {|post| post.id}.reverse
         # @posts.sort_by {|post| post.created_at}
     end
 
     def show
         @user = User.find(params[:id])
+        @sorted_posts = @user.posts.sort.reverse
+        @posts = Post.all.sort_by {|post| post.id}.reverse
         @post = @user.posts.build
     end
 

@@ -2,11 +2,11 @@
 <h1></h1>
 
 <% @posts.each do |post| %>
-    <p>
-        <%= post.content %>
-    </p>
     <p>Posted by:
-        <%= link_to post.user.username, user_path(post.user) %>
+        <b><%= link_to post.user.username, user_path(post.user) %></b>
+    </p>
+    <p>
+        <%= image_tag post.content %>
     </p>
     <p>Uploaded at:
         <%= post.created_at %>

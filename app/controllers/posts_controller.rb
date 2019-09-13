@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
     def index
-        @posts = Post.all
+        # @posts = Post.all
+        @posts = Post.all.sort_by {|post| post.id}.reverse
     end
 
     def show
@@ -21,16 +22,22 @@ class PostsController < ApplicationController
         redirect_to user_path(@user)
     end
 
-    # def edit
-    #     find_post
-    #     # byebug
-    # end
+    def edit
+        find_post
+        # byebug
+    end
 
-    # def update
-    #    find_post
-    #    @post.update(post_params)
-    #    redirect_to post_path(@post) 
-    # end
+    def update
+       find_post
+       @post.update(params.require(:post).permit(:description))
+       redirect_to user_path(@post.user)
+    end
+
+    def destroy
+        find_post
+        @post.destroy
+        redirect_to user_path(@post.user)
+    end
 
     private
 
